@@ -6,102 +6,146 @@
     <title>Admin Dashboard - Student Management System</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
-<body>
+<body class="admin-app">
     <div class="container">
-        <header>
-            <h1>🎓 Admin Dashboard</h1>
-            <p>Manage Students and Modules</p>
+        <header class="page-header">
+            <div>
+                <span class="eyebrow">Administrator Workspace</span>
+                <h1>Student Management Console</h1>
+                <p>Manage student profiles and academic modules with a streamlined, real-time dashboard.</p>
+            </div>
+            <div class="page-header__meta">
+                <span class="tag">WebSocket Gateway · Live</span>
+            </div>
         </header>
 
-        <div class="tabs">
-            <button class="tab-button active" onclick="showTab('students')">Students Management</button>
-            <button class="tab-button" onclick="showTab('modules')">Modules Management</button>
-        </div>
+        <nav class="tabs" role="tablist">
+            <button class="tab-button active" onclick="showTab('students')">Students</button>
+            <button class="tab-button" onclick="showTab('modules')">Modules</button>
+        </nav>
 
-        <!-- Students Management Tab -->
         <div id="students-tab" class="tab-content active">
-            <section class="card">
-                <h2>Add/Edit Student</h2>
-                <form id="student-form">
-                    <div class="form-group">
-                        <label for="studentId">Student ID:</label>
-                        <input type="text" id="studentId" required>
+            <div class="layout-grid">
+                <section class="card span-2">
+                    <div class="card-heading">
+                        <div>
+                            <span class="card-eyebrow">Student Records</span>
+                            <h2>Add or Update Student</h2>
+                            <p class="card-description">Create new student entries or update information for existing learners.</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="studentName">Name:</label>
-                        <input type="text" id="studentName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="studentEmail">Email:</label>
-                        <input type="email" id="studentEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="studentPassword">Password:</label>
-                        <input type="password" id="studentPassword" required>
-                    </div>
-                    <div class="button-group">
-                        <button type="submit" class="btn btn-primary">Add Student</button>
-                        <button type="button" class="btn btn-secondary" onclick="updateStudent()">Update Student</button>
-                        <button type="button" class="btn btn-secondary" onclick="clearStudentForm()">Clear</button>
-                    </div>
-                </form>
-            </section>
+                    <form id="student-form" class="form-surface">
+                        <div class="form-group">
+                            <label for="studentId">Student ID</label>
+                            <input type="text" id="studentId" required placeholder="e.g., S002">
+                        </div>
+                        <div class="form-group">
+                            <label for="studentName">Full Name</label>
+                            <input type="text" id="studentName" required placeholder="Enter student name">
+                        </div>
+                        <div class="form-group">
+                            <label for="studentEmail">Email Address</label>
+                            <input type="email" id="studentEmail" required placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="studentPassword">Password</label>
+                            <input type="password" id="studentPassword" required placeholder="Temporary password">
+                        </div>
+                        <div class="button-group">
+                            <button type="submit" class="btn btn-primary">Add Student</button>
+                            <button type="button" class="btn btn-secondary" onclick="updateStudent()">Update Student</button>
+                            <button type="button" class="btn btn-outline" onclick="clearStudentForm()">Clear Form</button>
+                        </div>
+                    </form>
+                </section>
 
-            <section class="card">
-                <h2>Student Operations</h2>
-                <div class="button-group">
-                    <button class="btn btn-info" onclick="listStudents()">List All Students</button>
-                    <button class="btn btn-info" onclick="viewStudent()">View Student</button>
-                </div>
-            </section>
+                <section class="card">
+                    <div class="card-heading">
+                        <div>
+                            <span class="card-eyebrow">Quick Actions</span>
+                            <h2>Student Insights</h2>
+                            <p class="card-description">Retrieve student listings or drill into a single profile.</p>
+                        </div>
+                    </div>
+                    <div class="button-group button-stack">
+                        <button class="btn btn-info" onclick="listStudents()">List All Students</button>
+                        <button class="btn btn-info" onclick="viewStudent()">View Student</button>
+                    </div>
+                </section>
 
-            <section class="card">
-                <h2>Students List</h2>
-                <div id="students-result" class="result-container"></div>
-            </section>
+                <section class="card span-full">
+                    <div class="card-heading">
+                        <div>
+                            <span class="card-eyebrow">Latest Output</span>
+                            <h2>Students Result</h2>
+                            <p class="card-description">Responses from the server appear here, including tables and detailed cards.</p>
+                        </div>
+                    </div>
+                    <div id="students-result" class="result-container"></div>
+                </section>
+            </div>
         </div>
 
-        <!-- Modules Management Tab -->
         <div id="modules-tab" class="tab-content">
-            <section class="card">
-                <h2>Add/Edit Module</h2>
-                <form id="module-form">
-                    <div class="form-group">
-                        <label for="moduleCode">Module Code:</label>
-                        <input type="text" id="moduleCode" required>
+            <div class="layout-grid">
+                <section class="card span-2">
+                    <div class="card-heading">
+                        <div>
+                            <span class="card-eyebrow">Module Catalog</span>
+                            <h2>Add or Update Module</h2>
+                            <p class="card-description">Maintain the list of academic modules with rich descriptions and credit values.</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="moduleName">Module Name:</label>
-                        <input type="text" id="moduleName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="moduleDescription">Description:</label>
-                        <textarea id="moduleDescription" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="moduleCredits">Credits:</label>
-                        <input type="number" id="moduleCredits" min="1" max="10" required>
-                    </div>
-                    <div class="button-group">
-                        <button type="submit" class="btn btn-primary">Add Module</button>
-                        <button type="button" class="btn btn-secondary" onclick="updateModule()">Update Module</button>
-                        <button type="button" class="btn btn-secondary" onclick="clearModuleForm()">Clear</button>
-                    </div>
-                </form>
-            </section>
+                    <form id="module-form" class="form-surface">
+                        <div class="form-group">
+                            <label for="moduleCode">Module Code</label>
+                            <input type="text" id="moduleCode" required placeholder="e.g., CS401">
+                        </div>
+                        <div class="form-group">
+                            <label for="moduleName">Module Name</label>
+                            <input type="text" id="moduleName" required placeholder="Enter module title">
+                        </div>
+                        <div class="form-group">
+                            <label for="moduleDescription">Description</label>
+                            <textarea id="moduleDescription" rows="3" required placeholder="Short summary of module content"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="moduleCredits">Credits</label>
+                            <input type="number" id="moduleCredits" min="1" max="10" required placeholder="Credits (1-10)">
+                        </div>
+                        <div class="button-group">
+                            <button type="submit" class="btn btn-primary">Add Module</button>
+                            <button type="button" class="btn btn-secondary" onclick="updateModule()">Update Module</button>
+                            <button type="button" class="btn btn-outline" onclick="clearModuleForm()">Clear Form</button>
+                        </div>
+                    </form>
+                </section>
 
-            <section class="card">
-                <h2>Module Operations</h2>
-                <div class="button-group">
-                    <button class="btn btn-info" onclick="listModules()">List All Modules</button>
-                    <button class="btn btn-info" onclick="viewModule()">View Module</button>
-                </div>
-            </section>
+                <section class="card">
+                    <div class="card-heading">
+                        <div>
+                            <span class="card-eyebrow">Quick Actions</span>
+                            <h2>Module Insights</h2>
+                            <p class="card-description">Explore the module catalog or inspect a specific module on demand.</p>
+                        </div>
+                    </div>
+                    <div class="button-group button-stack">
+                        <button class="btn btn-info" onclick="listModules()">List All Modules</button>
+                        <button class="btn btn-info" onclick="viewModule()">View Module</button>
+                    </div>
+                </section>
 
-            <section class="card">
-                <h2>Modules List</h2>
-                <div id="modules-result" class="result-container"></div>
-            </section>
+                <section class="card span-full">
+                    <div class="card-heading">
+                        <div>
+                            <span class="card-eyebrow">Latest Output</span>
+                            <h2>Modules Result</h2>
+                            <p class="card-description">Module listings and detail responses will be rendered in this area.</p>
+                        </div>
+                    </div>
+                    <div id="modules-result" class="result-container"></div>
+                </section>
+            </div>
         </div>
 
         <div id="status-message" class="status-message"></div>

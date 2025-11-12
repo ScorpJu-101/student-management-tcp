@@ -6,58 +6,80 @@
     <title>Student Portal - Student Management System</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
-<body>
+<body class="student-app">
     <div class="container">
-        <header>
-            <h1>🎓 Student Portal</h1>
-            <p>Welcome to the Student Management System</p>
+        <header class="page-header">
+            <div>
+                <span class="eyebrow">Student Portal</span>
+                <h1>Your Academic Hub</h1>
+                <p>Sign in to browse available modules, manage registrations, and stay on top of your study plan.</p>
+            </div>
         </header>
 
-        <!-- Login Section -->
-        <div id="login-section" class="section">
+        <div id="login-section" class="section auth-section">
             <section class="card login-card">
-                <h2>Student Login</h2>
-                <form id="login-form">
+                <div class="card-heading">
+                    <div>
+                        <span class="card-eyebrow">Welcome back</span>
+                        <h2>Sign in to continue</h2>
+                        <p class="card-description">Use the credentials shared by the faculty to access your personalised dashboard.</p>
+                    </div>
+                </div>
+                <form id="login-form" class="form-surface">
                     <div class="form-group">
-                        <label for="loginStudentId">Student ID:</label>
+                        <label for="loginStudentId">Student ID</label>
                         <input type="text" id="loginStudentId" required placeholder="e.g., S001">
                     </div>
                     <div class="form-group">
-                        <label for="loginPassword">Password:</label>
-                        <input type="password" id="loginPassword" required>
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required placeholder="Enter your password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
                 </form>
             </section>
         </div>
 
-        <!-- Dashboard Section (Hidden until login) -->
-        <div id="dashboard-section" class="section" style="display: none;">
+        <div id="dashboard-section" class="section dashboard-section" style="display: none;">
             <div class="welcome-banner">
-                <h2>Welcome, <span id="student-name"></span>!</h2>
-                <p>Student ID: <span id="logged-student-id"></span></p>
+                <div>
+                    <span class="card-eyebrow">Active Student</span>
+                    <h2>Welcome, <span id="student-name"></span></h2>
+                    <p class="banner-subtitle">Student ID <strong id="logged-student-id"></strong></p>
+                </div>
                 <button class="btn btn-secondary btn-logout" onclick="logout()">Logout</button>
             </div>
 
-            <div class="tabs">
+            <nav class="tabs" role="tablist">
                 <button class="tab-button active" onclick="showTab('modules')">Available Modules</button>
                 <button class="tab-button" onclick="showTab('registered')">My Modules</button>
-            </div>
+            </nav>
 
-            <!-- Available Modules Tab -->
             <div id="modules-tab" class="tab-content active">
                 <section class="card">
-                    <h2>Available Modules</h2>
-                    <button class="btn btn-info" onclick="loadModules()">Refresh Modules</button>
+                    <div class="card-toolbar">
+                        <div>
+                            <span class="card-eyebrow">Catalogue</span>
+                            <h2>Available Modules</h2>
+                            <p class="card-description">Browse and register for the modules that match your academic plan.</p>
+                        </div>
+                        <button class="btn btn-info" onclick="loadModules()">Refresh</button>
+                    </div>
                     <div id="modules-list" class="result-container"></div>
                 </section>
             </div>
 
-            <!-- Registered Modules Tab -->
             <div id="registered-tab" class="tab-content">
                 <section class="card">
-                    <h2>My Registered Modules</h2>
-                    <button class="btn btn-info" onclick="loadRegisteredModules()">Refresh My Modules</button>
+                    <div class="card-toolbar">
+                        <div>
+                            <span class="card-eyebrow">Your Selection</span>
+                            <h2>My Registered Modules</h2>
+                            <p class="card-description">Review the modules you have already enrolled in this semester.</p>
+                        </div>
+                        <button class="btn btn-info" onclick="loadRegisteredModules()">Refresh</button>
+                    </div>
                     <div id="registered-modules-list" class="result-container"></div>
                 </section>
             </div>

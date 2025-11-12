@@ -42,18 +42,22 @@ function sendRequest(action, data = {}) {
 // Handle response from server
 let currentAction = '';
 function handleResponse(response) {
+    console.log('handleResponse called. currentAction:', currentAction, 'response:', response);
+    
     if (response.success) {
         showStatus(response.message, 'success');
         
-        // Handle different response types
-        if (currentAction === 'STUDENT_LOGIN') {
+        // Handle different response types based on message content
+        if (response.message === 'Login successful') {
             handleLoginSuccess(response.data);
-        } else if (currentAction === 'VIEW_MODULES') {
+        } else if (response.message === 'Modules retrieved') {
+            console.log('Calling displayModules with data:', response.data);
             displayModules(response.data);
-        } else if (currentAction === 'VIEW_REGISTERED_MODULES') {
+        } else if (response.message === 'Registered modules retrieved') {
             displayRegisteredModules(response.data);
-        } else if (currentAction === 'REGISTER_MODULE') {
+        } else if (response.message === 'Module registered successfully') {
             loadRegisteredModules();
+            loadModules(); // Refresh available modules to show updated status
         }
     } else {
         showStatus(response.message, 'error');
@@ -76,6 +80,10 @@ function login() {
 
 function handleLoginSuccess(student) {
     currentStudent = student;
+    
+    // Debug: Log the student object received
+    console.log('Login successful! Student object:', student);
+    console.log('Registered modules:', student.registeredModules);
     
     // Hide login section, show dashboard
     document.getElementById('login-section').style.display = 'none';
@@ -141,10 +149,19 @@ function displayModules(modules) {
         return;
     }
     
+    // Debug: Check current student's registered modules
+    console.log('Current Student:', currentStudent);
+    console.log('Registered Modules:', currentStudent ? currentStudent.registeredModules : 'No student');
+    
     let html = '<table><thead><tr><th>Code</th><th>Module Name</th><th>Description</th><th>Credits</th><th>Action</th></tr></thead><tbody>';
     modules.forEach(module => {
-        const isRegistered = currentStudent && currentStudent.registeredModules && 
-                           currentStudent.registeredModules.includes(module.moduleCode);
+        // Check if module is registered (ensure registeredModules is an array)
+        const registeredModules = currentStudent && currentStudent.registeredModules ? 
+                                 (Array.isArray(currentStudent.registeredModules) ? 
+                                  currentStudent.registeredModules : []) : [];
+        const isRegistered = registeredModules.includes(module.moduleCode);
+        
+        console.log(`Module ${module.moduleCode}: isRegistered=${isRegistered}, registeredModules=`, registeredModules);
         
         html += `<tr>
             <td>${module.moduleCode}</td>
