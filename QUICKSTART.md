@@ -67,7 +67,7 @@ file:///D:/Networking/frontend/student/index.html
 
 ### As Student:
 1. Open `frontend/student/index.html`
-2. Login with S001 / password123
+2. Login with    / password123
 3. Click "Available Modules" → See all modules
 4. Click "Register" on CS101
 5. Click "My Modules" tab → See CS101 registered
