@@ -2,7 +2,7 @@
 
 A complete client-server system built using Java TCP sockets with WebSocket gateway for browser communication.
 
-## 🎯 Core Technologies
+##Core Technologies
 
 - **TCP Sockets**: Client-server communication
 - **Multithreading**: Concurrent client handling using ExecutorService
@@ -10,7 +10,7 @@ A complete client-server system built using Java TCP sockets with WebSocket gate
 - **WebSocket**: Browser-to-TCP gateway for frontend communication
 - **HTML/CSS/JavaScript**: Interactive user interface
 
-## 📁 Project Structure
+##Project Structure
 
 ```
 Networking/
@@ -35,7 +35,7 @@ Networking/
     └── styles.css             # Shared CSS styles
 ```
 
-## 🚀 How to Compile and Run
+##How to Compile and Run
 
 ### Step 1: Compile the Java Files
 
@@ -84,7 +84,7 @@ Open your browser and navigate to:
 - **Student UI**: `file:///D:/Networking/frontend/student/index.html`
 
 
-## 🧪 Test Data
+##Test Data
 
 The system comes with pre-loaded sample data:
 
@@ -99,7 +99,7 @@ The system comes with pre-loaded sample data:
 - **CS201**: Data Structures (4 credits)
 - **CS301**: Database Systems (3 credits)
 
-## 🔧 Technical Details
+##Technical Details
 
 ### TCP Server (Port 8888)
 - Uses `ServerSocket` for accepting connections
